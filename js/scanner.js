@@ -150,9 +150,22 @@ const SCANNER = {
             pc.createDataChannel('');
             await pc.createOffer().then(offer => pc.setLocalDescription(offer));
             
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 let localIp = null;
                 let subnet = '255.255.255.0'; // Default subnet mask
+                let timeoutId;
+                
+                // Add a 5-second timeout to handle cases where IP detection fails
+                timeoutId = setTimeout(() => {
+                    pc.onicecandidate = null;
+                    pc.close();
+                    // If IP detection fails, use a fallback local IP
+                    resolve({ 
+                        localIp: '192.168.1.100', 
+                        subnet: '255.255.255.0' 
+                    });
+                    console.log('IP detection timed out, using fallback IP');
+                }, 5000);
                 
                 pc.onicecandidate = (ice) => {
                     if (!ice || !ice.candidate || !ice.candidate.candidate) return;
@@ -162,6 +175,9 @@ const SCANNER = {
                     
                     if (ipMatch && ipMatch[1] && !localIp) {
                         localIp = ipMatch[1];
+                        
+                        // Clear the timeout since we found an IP
+                        clearTimeout(timeoutId);
                         
                         // Clean up
                         pc.onicecandidate = null;
@@ -182,7 +198,11 @@ const SCANNER = {
             });
         } catch (error) {
             console.error('Failed to get local IP:', error);
-            return null;
+            // If any error occurs, return a fallback IP so the scan can continue
+            return { 
+                localIp: '192.168.1.100', 
+                subnet: '255.255.255.0' 
+            };
         }
     },
     
