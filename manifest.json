@@ -2,7 +2,7 @@
   "name": "Network IP Scanner",
   "short_name": "IP Scanner",
   "description": "Scans network for devices and open ports",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f5f5",
   "theme_color": "#2196f3",

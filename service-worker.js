@@ -5,19 +5,20 @@
 
 const CACHE_NAME = 'ip-scanner-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/css/styles.css',
-    '/js/app.js',
-    '/js/scanner.js',
-    '/js/ui.js',
-    '/js/storage.js',
-    '/js/notifications.js',
-    '/images/favicon.ico',
-    '/images/notification-icon.png',
-    '/images/notification-icon.svg',
-    '/images/icon-192x192.svg',
-    '/images/icon-512x512.svg'
+    './', // Root path
+    'index.html', // No leading slash
+    'css/styles.css',
+    'js/app.js',
+    'js/scanner.js',
+    'js/ui.js',
+    'js/storage.js',
+    'js/notifications.js',
+    'images/favicon.ico',
+    'images/notification-icon.png',
+    'images/notification-icon.svg',
+    'images/icon-192x192.svg',
+    'images/icon-512x512.svg',
+    'manifest.json'
 ];
 
 // Install event - cache assets

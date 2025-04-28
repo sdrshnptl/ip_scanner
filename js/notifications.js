@@ -91,7 +91,7 @@ const NOTIFICATIONS = {
         // Create and show browser notification
         const notification = new Notification(title, {
             body: message,
-            icon: '/images/notification-icon.png'
+            icon: 'images/notification-icon.png' // Updated to relative path
         });
         
         // Auto close after 5 seconds
